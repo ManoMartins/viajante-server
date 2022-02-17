@@ -39,8 +39,16 @@ export class CitiesResolver {
   }
 
   @Mutation(() => City)
-  updateCity(@Args('updateCityInput') updateCityInput: UpdateCityInput) {
-    return this.citiesService.update(updateCityInput.id, updateCityInput);
+  async updateCity(
+    @Args('id') id: string,
+    @Args('updateCityInput') updateCityInput: UpdateCityInput,
+  ) {
+    const cities = await this.citiesService.update(id, updateCityInput);
+
+    return {
+      ...cities,
+      bannerImageUrl: `${process.env.BASE_URL}/photos/${cities.bannerImage}`,
+    };
   }
 
   @Mutation(() => Boolean)

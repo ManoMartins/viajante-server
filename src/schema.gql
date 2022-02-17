@@ -36,7 +36,7 @@ type Mutation {
   updateCategory(id: String!, data: UpdateCategoryInput!): Category!
   deleteCategory(id: String!): Boolean!
   createCity(createCityInput: CreateCityInput!): City!
-  updateCity(updateCityInput: UpdateCityInput!): City!
+  updateCity(id: String!, updateCityInput: UpdateCityInput!): City!
   removeCity(id: ID!): Boolean!
 }
 
@@ -65,5 +65,4 @@ input UpdateCityInput {
   description: String
   abstract: String
   bannerImage: Upload
-  id: Int!
 }

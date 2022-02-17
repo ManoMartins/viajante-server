@@ -58,8 +58,38 @@ export class CitiesService {
     return city;
   }
 
-  update(id: number, updateCityInput: UpdateCityInput) {
-    return `This action updates a #${id} city`;
+  async update(id: string, updateCityInput: UpdateCityInput): Promise<City> {
+    const city = await this.findOne(id);
+    let newCity = {
+      ...updateCityInput,
+      bannerImage: city.bannerImage,
+    };
+
+    if (updateCityInput.bannerImage) {
+      const { createReadStream, filename } = await updateCityInput.bannerImage;
+
+      const stream = createReadStream();
+
+      const out = createWriteStream(`./uploads/${filename}`);
+      stream.pipe(out);
+      await finished(out);
+
+      newCity = {
+        ...updateCityInput,
+        bannerImage: filename,
+      };
+    }
+
+    if (!city) {
+      throw new NotFoundException('City not found');
+    }
+
+    await this.citiesRepository.update(city, { ...newCity });
+
+    const cityUpdate = this.citiesRepository.create({ ...city, ...newCity });
+    await this.citiesRepository.save(cityUpdate);
+
+    return cityUpdate;
   }
 
   async remove(id: string): Promise<boolean> {
@@ -70,7 +100,7 @@ export class CitiesService {
     }
 
     const cityRemove = await this.citiesRepository.remove(city);
-    console.log(city);
+
     if (!cityRemove) return false;
 
     return true;
