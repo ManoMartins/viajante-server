@@ -37,7 +37,7 @@ type Mutation {
   deleteCategory(id: String!): Boolean!
   createCity(createCityInput: CreateCityInput!): City!
   updateCity(updateCityInput: UpdateCityInput!): City!
-  removeCity(id: Int!): City!
+  removeCity(id: ID!): Boolean!
 }
 
 input CreateCategoryInput {

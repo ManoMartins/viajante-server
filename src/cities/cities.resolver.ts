@@ -9,11 +9,11 @@ export class CitiesResolver {
   constructor(private readonly citiesService: CitiesService) {}
 
   @Mutation(() => City)
-  createCity(
+  async createCity(
     @Args({ name: 'createCityInput' })
     createCityInput: CreateCityInput,
   ) {
-    return this.citiesService.create(createCityInput);
+    return await this.citiesService.create(createCityInput);
   }
 
   @Query(() => [City], { name: 'cities' })
@@ -43,8 +43,8 @@ export class CitiesResolver {
     return this.citiesService.update(updateCityInput.id, updateCityInput);
   }
 
-  @Mutation(() => City)
-  removeCity(@Args('id', { type: () => Int }) id: number) {
-    return this.citiesService.remove(id);
+  @Mutation(() => Boolean)
+  async removeCity(@Args('id', { type: () => ID }) id: string) {
+    return await this.citiesService.remove(id);
   }
 }

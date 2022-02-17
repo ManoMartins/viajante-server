@@ -1,4 +1,8 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { createWriteStream } from 'node:fs';
 import { finished } from 'stream/promises';
@@ -44,11 +48,11 @@ export class CitiesService {
     return cities;
   }
 
-  findOne(id: string) {
-    const city = this.citiesRepository.findOne(id);
+  async findOne(id: string) {
+    const city = await this.citiesRepository.findOne(id);
 
     if (!city) {
-      throw new InternalServerErrorException('Error finding city');
+      throw new NotFoundException('City not found');
     }
 
     return city;
@@ -58,7 +62,17 @@ export class CitiesService {
     return `This action updates a #${id} city`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} city`;
+  async remove(id: string): Promise<boolean> {
+    const city = await this.citiesRepository.findOne(id);
+
+    if (!city) {
+      throw new NotFoundException('City not found');
+    }
+
+    const cityRemove = await this.citiesRepository.remove(city);
+    console.log(city);
+    if (!cityRemove) return false;
+
+    return true;
   }
 }
