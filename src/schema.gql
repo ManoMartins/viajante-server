@@ -28,7 +28,7 @@ type Query {
   findAllCategory: [Category!]!
   findCategoryById(id: String!): Category!
   cities: [City!]!
-  city(id: Int!): City!
+  city(id: ID!): City!
 }
 
 type Mutation {

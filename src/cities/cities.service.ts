@@ -44,8 +44,14 @@ export class CitiesService {
     return cities;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} city`;
+  findOne(id: string) {
+    const city = this.citiesRepository.findOne(id);
+
+    if (!city) {
+      throw new InternalServerErrorException('Error finding city');
+    }
+
+    return city;
   }
 
   update(id: number, updateCityInput: UpdateCityInput) {

@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Int, ID } from '@nestjs/graphql';
 import { CitiesService } from './cities.service';
 import { City } from './entities/city.entity';
 import { CreateCityInput } from './dto/create-city.input';
@@ -29,8 +29,13 @@ export class CitiesResolver {
   }
 
   @Query(() => City, { name: 'city' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.citiesService.findOne(id);
+  async findOne(@Args('id', { type: () => ID }) id: string) {
+    const city = await this.citiesService.findOne(id);
+
+    return {
+      ...city,
+      bannerImageUrl: `${process.env.BASE_URL}/photos/${city.bannerImage}`,
+    };
   }
 
   @Mutation(() => City)
