@@ -8,15 +8,36 @@ type Category {
   description: String!
 }
 
+type City {
+  id: ID!
+  name: String!
+  description: String!
+  abstract: String!
+  bannerImage: String!
+  bannerImageUrl: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
 type Query {
   findAllCategory: [Category!]!
   findCategoryById(id: String!): Category!
+  cities: [City!]!
+  city(id: Int!): City!
 }
 
 type Mutation {
   createCategory(data: CreateCategoryInput!): Category!
   updateCategory(id: String!, data: UpdateCategoryInput!): Category!
   deleteCategory(id: String!): Boolean!
+  createCity(createCityInput: CreateCityInput!): City!
+  updateCity(updateCityInput: UpdateCityInput!): City!
+  removeCity(id: Int!): City!
 }
 
 input CreateCategoryInput {
@@ -27,4 +48,22 @@ input CreateCategoryInput {
 input UpdateCategoryInput {
   name: String
   description: String
+}
+
+input CreateCityInput {
+  name: String!
+  description: String!
+  abstract: String!
+  bannerImage: Upload!
+}
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
+
+input UpdateCityInput {
+  name: String
+  description: String
+  abstract: String
+  bannerImage: Upload
+  id: Int!
 }

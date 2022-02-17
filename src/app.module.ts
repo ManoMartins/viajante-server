@@ -6,6 +6,7 @@ import { join } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CategoryModule } from './category/category.module';
+import { CitiesModule } from './cities/cities.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { CategoryModule } from './category/category.module';
     }),
     TypeOrmModule.forRoot(),
     CategoryModule,
+    CitiesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
