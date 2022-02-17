@@ -2,12 +2,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Category {
-  id: ID!
-  name: String!
-  description: String!
-}
-
 type City {
   id: ID!
   name: String!
@@ -25,29 +19,14 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 scalar DateTime
 
 type Query {
-  findAllCategory: [Category!]!
-  findCategoryById(id: String!): Category!
   cities: [City!]!
   city(id: ID!): City!
 }
 
 type Mutation {
-  createCategory(data: CreateCategoryInput!): Category!
-  updateCategory(id: String!, data: UpdateCategoryInput!): Category!
-  deleteCategory(id: String!): Boolean!
   createCity(createCityInput: CreateCityInput!): City!
   updateCity(id: String!, updateCityInput: UpdateCityInput!): City!
   removeCity(id: ID!): Boolean!
-}
-
-input CreateCategoryInput {
-  name: String!
-  description: String!
-}
-
-input UpdateCategoryInput {
-  name: String
-  description: String
 }
 
 input CreateCityInput {
