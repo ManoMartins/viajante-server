@@ -25,8 +25,6 @@ export class CitiesResolver {
       bannerImageUrl: `${process.env.BASE_URL}/photos/${city.bannerImage}`,
     }));
 
-    console.log(citiesFormatted);
-
     return citiesFormatted;
   }
 
