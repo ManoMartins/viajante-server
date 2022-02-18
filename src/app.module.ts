@@ -6,7 +6,6 @@ import { join } from 'path';
 import { CitiesModule } from './cities/cities.module';
 import { PlacesModule } from './places/places.module';
 import { CategoriesModule } from './categories/categories.module';
-import { CategoriesModule } from './categories/categories.module';
 
 @Module({
   imports: [

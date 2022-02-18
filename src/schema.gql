@@ -18,15 +18,37 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type Place {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+type Category {
+  id: ID!
+  name: String!
+  createdAt: String!
+  updateAt: String!
+}
+
 type Query {
   cities: [City!]!
   city(id: ID!): City!
+  places: [Place!]!
+  place(id: Int!): Place!
+  categories: [Category!]!
+  category(id: Int!): Category!
 }
 
 type Mutation {
   createCity(createCityInput: CreateCityInput!): City!
   updateCity(id: String!, updateCityInput: UpdateCityInput!): City!
   removeCity(id: ID!): Boolean!
+  createPlace(createPlaceInput: CreatePlaceInput!): Place!
+  updatePlace(updatePlaceInput: UpdatePlaceInput!): Place!
+  removePlace(id: Int!): Place!
+  createCategory(createCategoryInput: CreateCategoryInput!): Category!
+  updateCategory(updateCategoryInput: UpdateCategoryInput!): Category!
+  removeCategory(id: Int!): Category!
 }
 
 input CreateCityInput {
@@ -44,4 +66,24 @@ input UpdateCityInput {
   description: String
   abstract: String
   bannerImage: Upload
+}
+
+input CreatePlaceInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdatePlaceInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateCategoryInput {
+  name: String!
+}
+
+input UpdateCategoryInput {
+  name: String
+  id: Int!
 }

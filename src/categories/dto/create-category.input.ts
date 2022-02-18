@@ -1,7 +1,10 @@
-import { InputType, Int, Field } from '@nestjs/graphql';
+import { InputType, Field } from '@nestjs/graphql';
+import { IsNotEmpty, IsString } from 'class-validator';
 
 @InputType()
 export class CreateCategoryInput {
-  @Field(() => Int, { description: 'Example field (placeholder)' })
-  exampleField: number;
+  @IsString()
+  @Field(() => String)
+  @IsNotEmpty({ message: 'Name is required' })
+  name: string;
 }

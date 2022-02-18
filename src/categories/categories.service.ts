@@ -1,11 +1,26 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateCategoryInput } from './dto/create-category.input';
 import { UpdateCategoryInput } from './dto/update-category.input';
+import { Category } from './entities/category.entity';
 
 @Injectable()
 export class CategoriesService {
-  create(createCategoryInput: CreateCategoryInput) {
-    return 'This action adds a new category';
+  constructor(
+    @InjectRepository(Category)
+    private citiesRepository: Repository<Category>,
+  ) {}
+
+  async create(createCategoryInput: CreateCategoryInput): Promise<Category> {
+    const category = this.citiesRepository.create(createCategoryInput);
+    const categoryCreate = await this.citiesRepository.save(category);
+
+    if (!categoryCreate) {
+      throw new InternalServerErrorException('Error creating category');
+    }
+
+    return categoryCreate;
   }
 
   findAll() {

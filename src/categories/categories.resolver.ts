@@ -9,10 +9,10 @@ export class CategoriesResolver {
   constructor(private readonly categoriesService: CategoriesService) {}
 
   @Mutation(() => Category)
-  createCategory(
+  async createCategory(
     @Args('createCategoryInput') createCategoryInput: CreateCategoryInput,
   ) {
-    return this.categoriesService.create(createCategoryInput);
+    return await this.categoriesService.create(createCategoryInput);
   }
 
   @Query(() => [Category], { name: 'categories' })
