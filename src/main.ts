@@ -10,6 +10,6 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
   app.use(graphqlUploadExpress({ maxFileSize: 1000000, maxFiles: 10 }));
   app.useStaticAssets(join(__dirname, '../uploads'), { prefix: '/photos' });
-  await app.listen(3333);
+  await app.listen(3334);
 }
 bootstrap();

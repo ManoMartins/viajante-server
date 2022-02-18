@@ -4,6 +4,9 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { CitiesModule } from './cities/cities.module';
+import { PlacesModule } from './places/places.module';
+import { CategoriesModule } from './categories/categories.module';
+import { CategoriesModule } from './categories/categories.module';
 
 @Module({
   imports: [
@@ -13,6 +16,8 @@ import { CitiesModule } from './cities/cities.module';
     }),
     TypeOrmModule.forRoot(),
     CitiesModule,
+    PlacesModule,
+    CategoriesModule,
   ],
 })
 export class AppModule {}
