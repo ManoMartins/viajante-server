@@ -1,4 +1,8 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateCategoryInput } from './dto/create-category.input';
@@ -29,8 +33,14 @@ export class CategoriesService {
     return categories;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} category`;
+  async findOne(id: string) {
+    const category = await this.citiesRepository.findOne(id);
+
+    if (!category) {
+      throw new NotFoundException('Category does not exist!');
+    }
+
+    return category;
   }
 
   update(id: number, updateCategoryInput: UpdateCategoryInput) {

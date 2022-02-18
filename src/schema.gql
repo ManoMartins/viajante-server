@@ -36,7 +36,7 @@ type Query {
   places: [Place!]!
   place(id: Int!): Place!
   categories: [Category!]!
-  category(id: Int!): Category!
+  category(id: ID!): Category!
 }
 
 type Mutation {
