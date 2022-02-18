@@ -27,7 +27,7 @@ type Category {
   id: ID!
   name: String!
   createdAt: String!
-  updateAt: String!
+  updatedAt: String!
 }
 
 type Query {

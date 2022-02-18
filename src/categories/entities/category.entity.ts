@@ -24,5 +24,5 @@ export class Category {
 
   @Field()
   @UpdateDateColumn()
-  updateAt: string;
+  updatedAt: string;
 }

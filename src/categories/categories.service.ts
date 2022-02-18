@@ -23,8 +23,10 @@ export class CategoriesService {
     return categoryCreate;
   }
 
-  findAll() {
-    return `This action returns all categories`;
+  async findAll() {
+    const categories = await this.citiesRepository.find();
+
+    return categories;
   }
 
   findOne(id: number) {
