@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Int, ID } from '@nestjs/graphql';
 import { PlacesService } from './places.service';
 import { Place } from './entities/place.entity';
 import { CreatePlaceInput } from './dto/create-place.input';
@@ -9,8 +9,10 @@ export class PlacesResolver {
   constructor(private readonly placesService: PlacesService) {}
 
   @Mutation(() => Place)
-  createPlace(@Args('createPlaceInput') createPlaceInput: CreatePlaceInput) {
-    return this.placesService.create(createPlaceInput);
+  async createPlace(
+    @Args('createPlaceInput') createPlaceInput: CreatePlaceInput,
+  ) {
+    return await this.placesService.create(createPlaceInput);
   }
 
   @Query(() => [Place], { name: 'places' })
@@ -19,7 +21,7 @@ export class PlacesResolver {
   }
 
   @Query(() => Place, { name: 'place' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  findOne(@Args('id', { type: () => ID }) id: string) {
     return this.placesService.findOne(id);
   }
 

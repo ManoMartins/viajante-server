@@ -1,10 +1,12 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql';
+import { Place } from 'src/places/entities/place.entity';
 import {
   Column,
   Entity,
   CreateDateColumn,
   UpdateDateColumn,
   PrimaryGeneratedColumn,
+  OneToMany,
 } from 'typeorm';
 
 @ObjectType()
@@ -32,6 +34,9 @@ export class City {
 
   @Field(() => String)
   bannerImageUrl: string;
+
+  @OneToMany((type) => Place, (city) => City)
+  places: Place[];
 
   @Field(() => Date)
   @CreateDateColumn()
