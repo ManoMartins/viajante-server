@@ -43,11 +43,34 @@ export class CategoriesService {
     return category;
   }
 
-  update(id: number, updateCategoryInput: UpdateCategoryInput) {
-    return `This action updates a #${id} category`;
+  async update(id: string, updateCategoryInput: UpdateCategoryInput) {
+    const category = await this.citiesRepository.findOne(id);
+
+    if (!category) {
+      throw new NotFoundException('Category does not exist!');
+    }
+
+    await this.citiesRepository.update(category, { ...updateCategoryInput });
+
+    const categoryUpdated = this.citiesRepository.create({
+      ...category,
+      ...updateCategoryInput,
+    });
+    await this.citiesRepository.save(categoryUpdated);
+    return categoryUpdated;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} category`;
+  async remove(id: string) {
+    const category = await this.citiesRepository.findOne(id);
+
+    if (!category) {
+      throw new NotFoundException('Category does not exist!');
+    }
+
+    const categoryRemove = await this.citiesRepository.remove(category);
+
+    if (!categoryRemove) return false;
+
+    return true;
   }
 }

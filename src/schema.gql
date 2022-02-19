@@ -26,8 +26,8 @@ type Place {
 type Category {
   id: ID!
   name: String!
-  createdAt: String!
-  updatedAt: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type Query {
@@ -47,8 +47,8 @@ type Mutation {
   updatePlace(updatePlaceInput: UpdatePlaceInput!): Place!
   removePlace(id: Int!): Place!
   createCategory(createCategoryInput: CreateCategoryInput!): Category!
-  updateCategory(updateCategoryInput: UpdateCategoryInput!): Category!
-  removeCategory(id: Int!): Category!
+  updateCategory(id: ID!, updateCategoryInput: UpdateCategoryInput!): Category!
+  removeCategory(id: ID!): Boolean!
 }
 
 input CreateCityInput {
@@ -85,5 +85,4 @@ input CreateCategoryInput {
 
 input UpdateCategoryInput {
   name: String
-  id: Int!
 }

@@ -18,11 +18,11 @@ export class Category {
   @Column()
   name: string;
 
-  @Field()
+  @Field(() => Date)
   @CreateDateColumn()
-  createdAt: string;
+  createdAt: Date;
 
-  @Field()
+  @Field(() => Date)
   @UpdateDateColumn()
-  updatedAt: string;
+  updatedAt: Date;
 }

@@ -26,17 +26,15 @@ export class CategoriesResolver {
   }
 
   @Mutation(() => Category)
-  updateCategory(
+  async updateCategory(
+    @Args('id', { type: () => ID }) id: string,
     @Args('updateCategoryInput') updateCategoryInput: UpdateCategoryInput,
   ) {
-    return this.categoriesService.update(
-      updateCategoryInput.id,
-      updateCategoryInput,
-    );
+    return await this.categoriesService.update(id, updateCategoryInput);
   }
 
-  @Mutation(() => Category)
-  removeCategory(@Args('id', { type: () => Int }) id: number) {
+  @Mutation(() => Boolean)
+  async removeCategory(@Args('id', { type: () => ID }) id: string) {
     return this.categoriesService.remove(id);
   }
 }
